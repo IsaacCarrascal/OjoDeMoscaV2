@@ -13,6 +13,7 @@ class FlyEye
 		setTotalVertex();
 		setAngle();
 		setVertex(originx, originy);
+		printInstructions();
 		renderWindow();
 }
 	void renderWindow() {
@@ -78,6 +79,12 @@ class FlyEye
 			originx += movement;
 			circle.setPosition(movement, 0);
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+			rotationspeed = -abs(rotationspeed);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+			rotationspeed = abs(rotationspeed);
+		}
 	}
 
 	void drawLines(sf::RenderWindow& target) {
@@ -128,6 +135,10 @@ class FlyEye
 
 		return number;
 	}
+
+	void printInstructions() {
+		std::cout<<"Utilice WASD para mover, Q y E para cambiar sentido de rotacion" << std::endl;
+	}
 private:
 	int TotalVertex = 0;
 	float angle = 0;
@@ -138,9 +149,10 @@ private:
 	float originy = spritesize;
 	float movement = 3;
 	float rotation =0;
-	float rotationspeed = 0.017*36;
+	float rotationspeed = 0.017*60;
 	std::vector<Vertex> vertexes;
 	sf::Clock clock;
 	sf::Time time;
 };
+
 
