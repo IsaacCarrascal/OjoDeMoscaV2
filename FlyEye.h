@@ -92,9 +92,16 @@ class FlyEye
 			for (int j = i + 1; j < TotalVertex; j++) {
 				line[0].position = sf::Vector2f(vertexes[i].getPosx(), vertexes[i].getPosy());
 				line[1].position = sf::Vector2f(vertexes[j].getPosx(), vertexes[j].getPosy());
+				//if(checkcenter(i, j)==0)
 				target.draw(line, 2, sf::Lines);
 			}
 		}
+	}
+
+	int checkcenter(int i, int j) {
+		int center;
+		center = (vertexes[i].getPosx() - originx) * (vertexes[j].getPosx() - originx) + (vertexes[i].getPosy() - originy) * (vertexes[j].getPosy() - originy);
+		return center;
 	}
 
 	void setVertex(int posx, int posy) {
@@ -154,5 +161,4 @@ private:
 	sf::Clock clock;
 	sf::Time time;
 };
-
 
