@@ -8,14 +8,15 @@
 const float PI = 3.14159265358979323846;
 
 class FlyEye
-{public:
+{
+public:
 	FlyEye() {
 		setTotalVertex();
 		setAngle();
 		setVertex(originx, originy);
 		printInstructions();
 		renderWindow();
-}
+	}
 	void renderWindow() {
 		sf::RenderWindow window(sf::VideoMode(winsize * 2, winsize * 2), "Ojo de mosca");
 		window.setFramerateLimit(60);
@@ -92,16 +93,18 @@ class FlyEye
 			for (int j = i + 1; j < TotalVertex; j++) {
 				line[0].position = sf::Vector2f(vertexes[i].getPosx(), vertexes[i].getPosy());
 				line[1].position = sf::Vector2f(vertexes[j].getPosx(), vertexes[j].getPosy());
-				//if(checkcenter(i, j)==0)
+				if(!checkcenter(i+1, j+1))
 				target.draw(line, 2, sf::Lines);
 			}
 		}
 	}
 
-	int checkcenter(int i, int j) {
-		int center;
-		center = (vertexes[i].getPosx() - originx) * (vertexes[j].getPosx() - originx) + (vertexes[i].getPosy() - originy) * (vertexes[j].getPosy() - originy);
-		return center;
+	bool checkcenter(int i, int j) {
+		if (TotalVertex % 2 == 0) {
+			if (abs(i - j) == TotalVertex / 2)
+				return true;
+		}
+		return false;
 	}
 
 	void setVertex(int posx, int posy) {
@@ -144,7 +147,7 @@ class FlyEye
 	}
 
 	void printInstructions() {
-		std::cout<<"Utilice WASD para mover, Q y E para cambiar sentido de rotacion" << std::endl;
+		std::cout << "Utilice WASD para mover, Q y E para cambiar sentido de rotacion" << std::endl;
 	}
 private:
 	int TotalVertex = 0;
@@ -155,10 +158,9 @@ private:
 	float originx = spritesize;
 	float originy = spritesize;
 	float movement = 3;
-	float rotation =0;
-	float rotationspeed = 0.017*60;
+	float rotation = 0;
+	float rotationspeed = 0.017 * 60;
 	std::vector<Vertex> vertexes;
 	sf::Clock clock;
 	sf::Time time;
 };
-
